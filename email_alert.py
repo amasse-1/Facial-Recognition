@@ -8,7 +8,7 @@ def set_prim_user():
     print('Please enter primary user email and name')
     prim_user_email = input('Email: ')
     prim_user_name = input('Name: ')
-    send_alert('C:\\Users\\Anthony\\Pictures\\Saved Pictures\\ai.jpg',
+    send_alert('#example photo path here',
             prim_user_email, prim_user_name)
 
 def send_alert(pic, em, na):
@@ -26,7 +26,7 @@ def send_alert(pic, em, na):
     email = SMTP('smtp.gmail.com', 587)
     email.starttls()
     email.ehlo()
-    email.login('csc521.facerec@gmail.com', 'Capstone521')
+    email.login('csc521.facerec@gmail.com', '#Password here##')
     email.sendmail('anthonyjmasse@gmail.com', em, msg.as_string())
     email.quit()
 
