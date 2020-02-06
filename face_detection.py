@@ -1,6 +1,7 @@
-import Tkinter as tk #to create the GUI
+import tkinter as tk #to create the GUI
 from PIL import ImageTk, Image #to put the stream in the GUI
 import cv2 #for computer vision
+import email_alert as ea
 
 root = tk.Tk()
 root.title('Raspberry Pi Camera')
@@ -37,6 +38,12 @@ def stream():
     #reduce CPU temp
     label.after(2, stream)
 
+#check to see if a face is detected
+face_det = False
+
+if face_det == True:
+	ea.send_alert()
+
 #face detecttion
 def faceDetect(ex):
     detects = face_xml.detectMultiScale(ex, 1.1, 3)
@@ -44,6 +51,8 @@ def faceDetect(ex):
         #creating the rectangle
         cv2.rectangle(ex, (w,x), (w+y, x+z), (255,255,255), 2)
         newflip = ex[w:w+y, x:x+z]
+        #sending notification
+        face_det=True
 
 #start button to begin the stream
 start = tk.Button(root, text="Start Stream", command= lambda: stream())
