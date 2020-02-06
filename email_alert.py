@@ -25,7 +25,7 @@ def send_alert(pic, em, na):
     email = SMTP('smtp.gmail.com', 587)
     email.starttls()
     email.ehlo()
-    email.login('csc521.facerec@gmail.com', 'CSCCap521!')
+    email.login('csc521.facerec@gmail.com', #'password')
     email.sendmail('anthonyjmasse@gmail.com', em, msg.as_string())
     email.quit()
 
