@@ -1,4 +1,4 @@
-import tkinter as tk #to create the GUI
+import Tkinter as tk #to create the GUI
 from PIL import ImageTk, Image #to put the stream in the GUI
 import cv2 #for computer vision
 import email_alert as ea
@@ -54,13 +54,18 @@ def takePic(img):
 
 #face detection
 def faceDetect(ex):
+    boolean = False
     detects = face_xml.detectMultiScale(ex, 1.1, 3)
     for (w,x,y,z) in detects:
         #creating the rectangle
         cv2.rectangle(ex, (w,x), (w+y, x+z), (255,255,255), 2)
         newflip = ex[w:w+y, x:x+z]
-    x = True
-    return x
+        if(len(ex[w:w+y, x:x+z]) > 0):
+            boolean = True
+            return boolean
+        return boolean
+    return boolean
+            
 
 #start button to begin the stream
 start = tk.Button(root, text="Start Stream", command= lambda: stream())
