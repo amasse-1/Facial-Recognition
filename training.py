@@ -22,14 +22,19 @@ def read_csv(file1):
             newflip = check[w:w+y, x:x+z]
             #checking if a face is detected, if so then add to arrays
             if(len(check[w:w+y, x:x+z]) != 0):
+                #trainer needs to be trained with grayscale photos
                 gray = cv2.cvtColor(check[w:w+y, x:x+z], cv2.COLOR_BGR2GRAY)
+                #converting all images to sam size
+                gray = cv2.resize(check[w:w+y, x:x+z], (150,150))
                 faces.append(gray)
                 labels.append(np.array(int(label)))
-                
-                
-            else: continue
+            
+    #print(type(faces))
+    faces = np.asarray(faces)
+    labels = np.asarray(labels)
             
     return faces, labels
+
 
 #getting faces and labels from data file            
 faces, labels = read_csv('data.csv')
@@ -37,3 +42,5 @@ faces, labels = read_csv('data.csv')
 #training model
 face_rec.train(faces, labels)
 face_rec.write('trained_rec.yml')
+
+
