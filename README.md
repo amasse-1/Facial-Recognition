@@ -7,7 +7,9 @@ This Capstone Project uses facial detection, facial recognition, and email notif
   which is useful for attaching images.
     
 ## For Facial detection and recognition: 
-* OpenCV - an open source computer vision library
+* OpenCV - an open source computer vision library with the following algorithms used:
+   * Haar-Cascades: a facial detection algorithm 
+   * Fisherface: a facial recongition algorithm
 
 
 
