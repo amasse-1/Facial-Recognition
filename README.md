@@ -13,7 +13,7 @@ This Capstone Project uses facial detection, facial recognition, and email notif
 
 
 
-# Email Notifications
+## Email Notifications
 One huge feature of this program is to use email notification to notify the primary user to 
 
 # In process of finishing this readme file
