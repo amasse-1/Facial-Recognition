@@ -3,7 +3,6 @@ from PIL import ImageTk, Image #to put the stream in the GUI
 import cv2 #for computer vision
 import email_alert as ea
 import os
-import time
 
 root = tk.Tk()
 root.title('Raspberry Pi Camera')
