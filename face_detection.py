@@ -3,6 +3,7 @@ from PIL import ImageTk, Image #to put the stream in the GUI
 import cv2 #for computer vision
 import email_alert as ea
 import os
+import time
 
 root = tk.Tk()
 root.title('Raspberry Pi Camera')
@@ -50,6 +51,8 @@ def takePic(img):
     ea.send_alert(pic=newImg)
     #deletes the image to save memory
     os.remove(newImg)
+    #10 second wait to delay the amount of emails sent
+    time.sleep(10)
 
 #face detection
 def faceDetect(ex):
@@ -57,14 +60,35 @@ def faceDetect(ex):
     detects = face_xml.detectMultiScale(ex, 1.1, 3)
     for (w,x,y,z) in detects:
         #creating the rectangle
-        cv2.rectangle(ex, (w,x), (w+y, x+z), (255,255,255), 2)
-        newflip = ex[w:w+y, x:x+z]
-        if(len(ex[w:w+y, x:x+z]) > 0):
+        cv2.rectangle(ex, (w,x), (w+y, x+z), (255,255,255), 4)
+        newflip = ex[x:x+z, w:w+y]
+        new_size = cv2.resize(ex[x:x+z, w:w+y], (150,150))
+        num, name = face_rec(new_size)
+        #if there is a trusted face display their faces
+        if(num != -1):
+            cv2.putText(ex, name, (w, x), cv2.FONT_HERSHEY_PLAIN, 1.5, (255,255,255), 2)
+        #if there is an intruder return a boolean to the send_alert function
+        if(num == -1):
             boolean = True
             return boolean
         return boolean
     return boolean
             
+def face_rec(ex):
+    #face recognizer
+    rec = cv2.face.FisherFaceRecognizer_create()
+    x = rec.read('trained_rec.yml')
+    
+    #needs to be grayscale to predict
+    ex = cv2.cvtColor(ex, cv2.COLOR_BGR2GRAY)
+    
+    #predict function to give the person's number and confidence level
+    num, conf = rec.predict(ex)
+    
+    #getting the name of the person
+    name = rec.getLabelInfo(num)
+    
+    return num, name
 
 #start button to begin the stream
 start = tk.Button(root, text="Start Stream", command= lambda: stream())
