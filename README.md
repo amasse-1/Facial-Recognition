@@ -30,4 +30,8 @@ This Capstone Project uses facial detection, facial recognition, and email notif
 ## Email Notifications
 One huge feature of this program is to use email notification to notify the primary user of individuals that are not allowed within the space in which the camera is placed. The notifications will include a photo of the intruder which is sent via email from the designated email address for this project which is: csc521.facerec@gmail.com. 
 
-# In process of finishing this readme file
+## Facial Detection 
+This project uses Haar-Cascades to find faces within the video stream coming from the camera. The face detection finds the face and then from that point takes the face of that individual, focuses in on the face, resizes the face to be the same size as the faces within the data set, and then runs it through the recognizer. 
+
+## Facial Recognition
+The recongizer uses the Fisher Face algorithm to determine how close the individual matches with any of the individuals within the data set. The Fisher Face algorithm uses the photos from the data set and changes those photos to focus on certain parts of the face such as: eyes, nose, the bridge, etc. This makes it easier for the algorithm to determine if this new photo of a specific person is within the recognizable individuals or if it is an intruder. If the individual is recongnized then there won't be an email notification. However, if the individual is not recognized then there will be an email sent to thr primary user to then take it from there. 
