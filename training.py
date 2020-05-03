@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 #creating Fisherface Recognizer
-face_rec = cv2.face.FisherFaceRecognizer_create(30, 750.0)
+face_rec = cv2.face.FisherFaceRecognizer_create(num_components=71, threshold=950)
 
 #creating read csv function
 def read_csv(file1):
@@ -17,9 +17,9 @@ def read_csv(file1):
         detect = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
         detects = detect.detectMultiScale(check)
         for (w,x,y,z) in detects:
-            #creating the rectangle
-            rect = cv2.rectangle(check, (w,x), (w+y, x+z), (255,255,255), 2)
-            newflip = check[x:x+z, w:w+y]
+            #creating the rectangle, use this for reference for the check[x:x+z, w:w+y]
+            #rect = cv2.rectangle(check, (w,x), (w+y, x+z), (255,255,255), 1)
+            #newflip = check[x:x+z, w:w+y]
             #checking if a face is detected, if so then add to arrays
             if(len(check[x:x+z, w:w+y]) != 0):
                 #trainer needs to be trained with grayscale photos
@@ -41,10 +41,12 @@ faces, labels = read_csv('data.csv')
 
 #Adding labels for the names
 face_rec.setLabelInfo(0, 'Anthony')
-face_rec.setLabelInfo(1, 'Jalen')
-face_rec.setLabelInfo(2, 'Kaylee')
+face_rec.setLabelInfo(1, 'Dad')
+face_rec.setLabelInfo(2, 'Jalen')
+face_rec.setLabelInfo(3, 'Kaylee')
+face_rec.setLabelInfo(4, 'Mom')
 
 #training model
 face_rec.train(faces, labels)
 #save model to be used in different functions
-face_rec.write('trained_rec.yml')
+face_rec.write('trained.yml')
