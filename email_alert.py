@@ -24,6 +24,6 @@ def send_alert(pic):
     email = SMTP('smtp.gmail.com', 587)
     email.starttls()
     email.ehlo()
-    email.login('csc521.facerec@gmail.com', 'CSCCap521!')
+    email.login('csc521.facerec@gmail.com', 'CSCCap521!') # this account has previously been deleted before posting
     email.sendmail('anthonyjmasse@gmail.com', 'anthonyjmasse@gmail.com', msg.as_string())
     email.quit()
